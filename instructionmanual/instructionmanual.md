@@ -356,3 +356,23 @@ Parameters Table
 |0x2003|echoPara4|uint16|Configuration|74|5|5| |
 |0x2004|echoFreHz|uint32|read/write|10000|1|500|
 |0x2005|MechOffset|float|set up|7|-7|4.619583|Motor magnetic encoder angle offset|
+|0x2006|MechPos_init|float|read/write|50|-50|4.52|Reference angle during initial multi-turn|
+|0x2007|limit_torque|float|read/write|12|0|12|Torque limit|
+|0x2008|I_FW_MAX|float|read/write|33|0|0|Field weakening current value, default 0|
+|0x2009|motor_index|uint8|set up|20|0|1|Motor index, marks the motor joint position|
+|0X200a|CAN_ID|uint8|set up|127|0|1|This node id|
+|0x200b|CAN_MASTER|uint8|set up|127|0|0|can host id|
+|0x200c|CAN_TIMEOUT|uint32|read/write|100000|0|0|can timeout threshold, default 0|
+|0x200d|motorOverTemp|int16|read/write|1500|0|800|Motor protection temperature value, temp (degree) *10|
+|0x200e|overTempTime|uint32|read/write|1000000|1000|20000|Overtemperature time|
+|0x200f|GearRatio|float|read/write|64|1|7.75|Transmission ratio|
+|0x2010|Tq_caliType|uint8|read/write|1|0|1|Torque calibration method setting|
+|0x2011|cur_filt_gain|float|read/write|1|0|0.9|Current filter parameters|
+|0x2012|cur_kp|float|read/write|200|0|0.025|Current kp|
+|0x2013|cur_ki|float|read/write|200|0|0.0258|electric current ki|
+|0x2014|spd_kp|float|read/write|200|0|2|Speed kp|
+|0x2015|spd_ki|float|read/write|200|0|0.021|speed ki|
+|0x2016|loc_kp|float|read/write|200|0|30|Location kp|
+|0x2017|spd_filt_gain|float|read/write|1|0|0.1|Speed filter parameters|
+|0x2018|limit_spd|float|read/write|200|0|2|Position mode speed limit|
+|0x2019|limit_cur|float|read/write|23|0|23|Position, speed mode current limit|
