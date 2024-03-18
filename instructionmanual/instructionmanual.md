@@ -6,34 +6,34 @@
 
 Table of contents
 
-Precautions
+[Precautions](#precautions)
 
-Legal Notices
+[Legal Notices](#legal-notices)
 
-After-sales policy
+[After-sales policy](#after-sales-policy)
 
-1. Motor specifications and parameters
-    1. Appearance and installation dimensions
-    2. Standard usage status
-    3. Electrical characteristics
-    4. Mechanical properties
-2. Drive product information
-    1. Driver Appearance Introduction & Product Specifications
-    2. Driver interface definition
+1. [Motor specifications and parameters](#1-motor-specifications)
+    1. [Appearance and installation dimensions](#11-appearance-and-installation-dimensions)
+    2. [Standard usage status](#12-standard-usage-status)
+    3. [Electrical characteristics](#13-electrical-characteristics)
+    4. [Mechanical properties](#14-mechanical-properties)
+2. [Drive product information](#2-drive-product-information)
+    1. [Driver Appearance Introduction & Product Specifications](#21-driver-appearance-introduction--product-specifications)
+    2. [Driver interface definition](#22-driver-interface-definition)
         1. Driver interface diagram
         2. Recommended brands and models of drive interfaces
         3. Driver interface pin definition
-    3. Drive indicator light definition
-    4. Main components and specifications
-3. Debugger usage instructions
-    1. Hardware Configuration
-    2. Debugger interface and instructions
-    3. Motor settings
-    4. Control demo
-    5. Firmware update
-4. Driver communication protocol and usage instructions
-    1. Communication protocol type description
-    2. Control mode usage instructions
+    3. [Drive indicator light definition](#23-definition-of-driver-indicator-light)
+    4. [Main components and specifications](#24-main-components-and-specifications)
+3. [Debugger usage instructions](#3-debugger-usage-instructions-scan-the-qr-code-at-the-end-of-the-paper-manual-to-obtain-the-debugger)
+    1. [Hardware Configuration](#31-hardware-configuration)
+    2. [Debugger interface and instructions](#32-debugger-interface-and-description)
+    3. [Motor settings](#33-motor-settings)
+    4. [Control demo](#34-control-demo)
+    5. [Firmware update](#35-firmware-update)
+4. [Driver communication protocol and usage instructions](#4-driver-communication-protocol-and-usage-instructions)
+    1. [Communication protocol type description](#41-communication-protocol-type-description)
+    2. [Control mode usage instructions](#42-instructions-for-use-of-control-mode)
 
 ### Precautions
 
@@ -483,7 +483,7 @@ Manually switch to speed mode, click the switch button on the right, and then se
 Manually switch the position mode, click the switch button on the right, then set the position command value (rad), start or send continuously, the motor will follow the target position command, click the switch button on the right again, the motor will stop. You can modify the maximum speed of position following by setting the speed.  
 Click the switch button on the right side of the control mode, enter the amplitude and frequency of the sine-based automatic test, and then click the switch button on the right side of the sine-based automatic test. The motor position (rad) will run according to the set amplitude and frequency.
 
-3.5 Firmware update
+#### 3.5 Firmware update
 
 ![Firmware update](images/pic26.png "Firmware update")
 
