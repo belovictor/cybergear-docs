@@ -1,5 +1,7 @@
 # CyberGear micromotor instruction manual
 
+**Disclaimer: This is not an official english verion of CyberGear instruction manual. It is a translation of the original instruction manual done using Google Translate with some meaning and formatting fixes to make using CyberGear easier. Please, be carefull when interpreting information from this document.**
+
 ### Table of contents
 
 Table of contents
