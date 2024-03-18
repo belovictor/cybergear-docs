@@ -435,3 +435,169 @@ Click the oscilloscope module in the analysis module, select the appropriate par
 #### 3.4 control demo
 
 
+---
+
+### 4. Driver communication protocol and usage instructions
+
+Motor communication is CAN 2.0 communication interface, with a baud rate of 1Mbps and an extended frame format, as shown
+|data field|29-digit ID| | |8Byte data area|
+|-|-|-|-|-|
+|size|Bit28~bit24|bit23~8|bit7~0|Byte0~Byte7|
+|describe|Communication type|Data area 2|target address|Data area 1|
+
+The control modes supported by the motor include:
+* Operation control mode: given 5 parameters for motor operation control;
+* Current mode: given the specified Iq current of the motor;
+* Speed mode: given the specified operating speed of the motor;
+* Position mode: Given a specified position of the motor, the motor will run to the specified position;
+
+#### 4.1 Communication protocol type description
+
+4.1.1 Get device ID (communication type 0); Get the device's ID and 64-bit MCU unique identifier
+
+Request frame:
+|Data field|29-bit ID| | |8 byte data area|
+|-|-|-|-|-|
+|Position|Bit 28 ~ 24|bit 23 ~ 8|Bit 7 ~ 0|Byte 0 ~ 7|
+|Description|0|Bit 15 ~ 8: used to identify the host CAN_ID|target motor CAN_ID|0|
+
+Response frame:
+|Data field|29-bit ID| | |8 byte data area|
+|-|-|-|-|-|
+|Position|Bit 28 ~ 24|bit 23 ~ 8|Bit 7 ~ 0|Byte 0 ~ 7|
+|Description|0|Target motor CAN_ID|0XFE|64-bit MCU unique identifier|
+
+4.1.2 Motor control instructions (communication type 1) in operation control mode are used to send control instructions to the motor.
+
+Request frame:
+|Data field|29-bit ID| | |8 byte data area|
+|-|-|-|-|-|
+|Position|Bit 28 ~ 24|bit 23 ~ 8|Bit 7 ~ 0|Byte 0 ~ 7|
+|Description|1|Byte2: Torque (0~65535) corresponding to (- 12Nm~12Nm)|target motor CAN_ID|Byte 0 ~ 1: Target angle [0~65535] corresponding to (-4π ~ 4π)<br/>Byte 2 ~ 3: Target angular velocity [0~65535] corresponds to (- 30rad/s ~ 30rad/s)<br/>Byte 4 ~ 5: Kp [0~65535] corresponds to (0.0 ~ 500.0)<br/>Byte 6 ~ 7: Kd [0~65535] corresponds to (0.0 ~ 5.0)|
+
+Response frame: Reply motor feedback frame (see communication type 2)
+
+4.1.3 Motor feedback data (communication type 2) is used to feedback the motor operating status to the host
+
+|Data field|29-bit ID| | |8 byte data area|
+|-|-|-|-|-|
+|Position|Bit 28 ~ 24|bit 23 ~ 8|Bit 7 ~ 0|Byte 0 ~ 7|
+|Description|2|Bit 8 ~ 15: Current motor CAN ID<br/> Bit 21~16: fault information (0 no 1 yes)<br/> Bit 21: not calibrated<br/>Bit 20: HALL encoding failure<br/>Bit 19: Magnetic encoding failure<br/>Bit 18: over temperature<br/>Bit 17: overcurrent<br/>Bit 16: Undervoltage fault<br/>Bit 22 ~ 23: mode status:<br/> 0: Reset mode [reset]<br/>1: Cali mode [Calibration]<br/>2: Motor mode [Run]|Host CAN_ID|Byte 0 ~ 1: Current angle [0~65535] corresponds to (-4π ~ 4π)<br/>Byte 2 ~ 3: Current angular velocity [0~65535] corresponds to (-30rad/s ~ 30rad/s)<br/>Byte 4 ~ 5: Current torque [0~65535] corresponds to (-12Nm~12Nm)<br/>Byte 6 ~ 7: Current temperature: Temp (degrees Celsius) )*10|
+
+4.1.4 Motor enable operation (communication type 3)
+
+|Data field|29-bit ID| | |8 byte data area|
+|-|-|-|-|-|
+|Position|Bit 28 ~ 24|bit 23 ~ 8|Bit 7 ~ 0|Byte 0 ~ 7|
+|Description|3|Bit 15 ~ 8: used to identify the main CAN_ID|Target motor CAN_ID||
+
+Reply frame: Reply motor feedback frame (see communication type 2)
+
+4.1.5 Motor stopped (communication type 4)
+
+|Data field|29-bit ID| | |8 byte data area|
+|-|-|-|-|-|
+|Position|Bit 28 ~ 24|bit 23 ~ 8|Bit 7 ~ 0|Byte 0 ~ 7|
+|Description|4|Bit 15 ~ 8: used to identify the main CAN_ID|Target motor CAN_ID|During normal operation, the data area needs to be cleared to 0;<br/>When Byte[0]=1: Clear fault;|
+
+Reply frame: Reply motor feedback frame (see communication type 2)
+
+4.1.6 Setting the mechanical zero position of the motor (communication type 6) will set the current motor position to the mechanical zero position (lost after power failure)
+
+|Data field|29-bit ID| | |8 byte data area|
+|-|-|-|-|-|
+|Position|Bit 28 ~ 24|bit 23 ~ 8|Bit 7 ~ 0|Byte 0 ~ 7|
+|Description|6|Bit 15 ~ 8: used to identify the main CAN_ID|Target motor CAN_ID|Byte[0]=1|
+
+Reply frame: Reply motor feedback frame (see communication type 2)
+
+4.1.7 Set motor CAN_ID (communication type 7) to change the current motor CAN_ID, which will take effect immediately.
+
+|Data field|29-bit ID| | |8 byte data area|
+|-|-|-|-|-|
+|Position|Bit 28 ~ 24|bit 23 ~ 8|Bit 7 ~ 0|Byte 0 ~ 7|
+|Description|7|bit15~8: used to identify the main CAN_ID<br/>Bit16~23: Default CAN_ID|Target motor CAN_ID|Byte[0]=1|
+
+Reply frame: Reply motor broadcast frame (see communication type 0)
+
+4.1.8 Single parameter reading (communication type 17)
+
+|Data field|29-bit ID| | |8 byte data area|
+|-|-|-|-|-|
+|Position|Bit 28 ~ 24|bit 23 ~ 8|Bit 7 ~ 0|Byte 0 ~ 7|
+|Description|17|Bit 15 ~ 8: used to identify the main CAN_ID|Target motor CAN_ID|Byte 0 ~ 1: index, see 4.1.11 for parameter list<br/>Byte 2 ~ 3: 00<br/>Byte 4 ~ 7: 00|
+
+Response frame:
+
+|Data field|29-bit ID| | |8 byte data area|
+|-|-|-|-|-|
+|Position|Bit 28 ~ 24|bit 23 ~ 8|Bit 7 ~ 0|Byte 0 ~ 7|
+|Description|17|Bit 15 ~ 8: Target motor CAN_ID|Host CAN_ID|Byte 0 ~ 1: index, for parameter list, see 4.1.11<br/>Byte 2 ~ 3: 00<br/>Byte 4 ~ 7: parameter data, 1 byte data is in Byte 4|
+
+4.1.9 Single parameter writing (communication type 18) (lost after power failure)
+
+|Data field|29-bit ID| | |8 byte data area|
+|-|-|-|-|-|
+|Position|Bit 28 ~ 24|bit 23 ~ 8|Bit 7 ~ 0|Byte 0 ~ 7|
+|Description|18|Bit 15 ~ 8: used to identify the main CAN_ID|Byte 0 ~ 1: index, see 4.1.11 for parameter list details<br/>Byte 2 ~ 3: 00<br/>Byte 4 ~ 7: parameter data|
+
+Reply frame: Reply motor feedback frame (see communication type 2)
+
+4.1.10 Fault feedback frame (communication type 21)
+
+4.1.11 Baud rate modification (communication type 22) (version 1.2.1.5 can be modified, please refer to the document process to modify it carefully. Operation errors may cause problems such as being unable to connect to the motor and being unable to upgrade)
+
+4.1.12 Readable and writable single parameter list (7019-7020 is readable by firmware version 1.2.1.5)
+
+|Parameter index|parameter name|describe|type|Number of bytes|Possible values|Permission|
+|-|-|-|-|-|-|-|
+|0x7005|run_mode|0: Operation control mode<br/>1: Position mode<br/>2: Speed mode<br/>3: Current mode|uint8|1| |W/R
+|0x7006|iq_ref|Current Mode Iq Command|float|4|-23 ~ 23A|W/R|
+|0x700A|spd_ref|Speed mode speed command|float|4|-30 ~ 30rad/s|W/R|
+|0x700B|limit_torque|Torque limit|float|4|0~12Nm|W/R|
+|0x7010|cur_kp|Kp of current|float|4|Default value 0.125|W/R|
+|0x7011|cur_ki|Current Ki|float|4|Default value 0.0158|W/R|
+|0x7014|cur_filt_gain|Current filter coefficient filt_gain|float|4|0~1.0, default value W/R 0.1|W/R|
+|0x7016|loc_ref|Position mode angle command|float|4|rad|W/R|
+|0x7017|limit_spd|Position mode speed limit|float|4|0 ~ 30rad/s|W/R|
+|0x7018|limit_cur|Speed Position Mode Current Limit|float|4|0 ~ 23A|W/R|
+|0x7019|mechPos|Load end lap counting mechanical angle|float|4|rad|R|
+|0x701A|iqf|iq filter value|float|4|-23 ~ 23A|R|
+|0x701B|mechVel|Load end speed|float|4|-30 ~ 30rad/s|R|
+|0x701C|VBUS|bus voltage|float|4|V|R|
+|0x701D|rotation|Number of turns|int16|2|Number of turns|W/R|
+|0x701E|loc_kp|kp of position|float|4|Default value 30|W/R|
+|0x701F|spd_kp|Speed in kp|float|4|Default value 1|W/R|
+|0x7020|spd_ki|Speed of ki|float|4|Default value 0.002|W/R|
+
+#### 4.2 Instructions for use of control mode
+
+4.2.1 Program sample
+
+4.2.2 Operation control mode
+
+![Operation control mode](images/pic15.png "Operation control mode")
+
+After the motor is powered on, it is in the operation control mode by default;  
+Send motor enable running frame (communication type 3)-->Send operation control mode motor control command (communication type 1)-->Receive motor feedback frame (communication type 2)
+
+4.2.3 Current mode
+
+Send the motor mode parameter write command (communication type 18) and set the runmode parameter to 3 ---> Send the motor enable run frame (communication type 3) --> Send the motor mode parameter write command (communication type 18) and set the iq_ref parameter is the preset current command
+
+4.2.4 Speed mode
+
+![Speed mode](images/pic16.png "Speed mode")
+
+Send the motor mode parameter write command (communication type 18) and set the runmode parameter to 2 ---> Send the motor enable run frame (communication type 3) --> Send the motor mode parameter write command (communication type 18) and set the limit_cur parameter For the preset maximum current command-->Send motor mode parameter write command (communication type 18) to set the spd_ref parameter to the preset speed command
+
+4.2.5 Location mode
+
+![Location mode](images/pic17.png "Location mode")
+
+Send the motor mode parameter write command (communication type 18) and set the runmode parameter to 1 --> Send the motor enable run frame (communication type 3) --> Send the motor mode parameter write command (communication type 18) and set the limit_spd parameter to Preset maximum speed command-->Send motor mode parameter write command (communication type 18) to set the loc_ref parameter to the preset position command
+
+4.2.6 Stop operation
+
+Send motor stop frame (communication type 4)
+
