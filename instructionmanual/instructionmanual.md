@@ -473,7 +473,7 @@ Request frame:
 |Data field|29-bit ID| | |8 byte data area|
 |-|-|-|-|-|
 |Position|Bit 28 ~ 24|bit 23 ~ 8|Bit 7 ~ 0|Byte 0 ~ 7|
-|Description|1|Byte2: Torque (0~65535) corresponding to (- 12Nm~12Nm)|target motor CAN_ID|Byte 0 ~ 1: Target angle [0 ~ 65535] corresponding to (-4π ~ 4π)<br/>Byte 2 ~ 3: Target angular velocity [0 ~ 65535] corresponds to (- 30rad/s ~ 30rad/s)<br/>Byte 4 ~ 5: Kp [0 ~ 65535] corresponds to (0.0 ~ 500.0)<br/>Byte 6 ~ 7: Kd [0 ~ 65535] corresponds to (0.0 ~ 5.0)|
+|Description|1|Byte2: Torque (0 ~ 65535) corresponding to (- 12Nm ~ 12Nm)|target motor CAN_ID|Byte 0 ~ 1: Target angle [0 ~ 65535] corresponding to (-4π ~ 4π)<br/>Byte 2 ~ 3: Target angular velocity [0 ~ 65535] corresponds to (- 30rad/s ~ 30rad/s)<br/>Byte 4 ~ 5: Kp [0 ~ 65535] corresponds to (0.0 ~ 500.0)<br/>Byte 6 ~ 7: Kd [0 ~ 65535] corresponds to (0.0 ~ 5.0)|
 
 Response frame: Reply motor feedback frame (see communication type 2)
 
