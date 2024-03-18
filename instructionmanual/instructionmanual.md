@@ -87,10 +87,10 @@ For details of the group’s after-sales policy, please see: [https://www.mi.com
 1.2.4 Running direction: CW/CCW viewed from the direction of the shaft  
 1.2.5 Usage posture: The axis direction is horizontal or vertical  
 1.2.6 Standard operating temperature: 25±5°C  
-1.2.7 Operating temperature range: -20~50°C  
+1.2.7 Operating temperature range: -20 ~ 50°C  
 1.2.8 Standard operating humidity: 65%  
-1.2.9 Operating humidity range: 5~85%, no condensation  
-1.2.10 Storage temperature range: -30~70°C  
+1.2.9 Operating humidity range: 5 ~ 85%, no condensation  
+1.2.10 Storage temperature range: -30 ~ 70°C  
 1.2.11 Insulation level: Class B
 
 #### 1.3 Electrical characteristics
@@ -473,7 +473,7 @@ Request frame:
 |Data field|29-bit ID| | |8 byte data area|
 |-|-|-|-|-|
 |Position|Bit 28 ~ 24|bit 23 ~ 8|Bit 7 ~ 0|Byte 0 ~ 7|
-|Description|1|Byte2: Torque (0~65535) corresponding to (- 12Nm~12Nm)|target motor CAN_ID|Byte 0 ~ 1: Target angle [0~65535] corresponding to (-4π ~ 4π)<br/>Byte 2 ~ 3: Target angular velocity [0~65535] corresponds to (- 30rad/s ~ 30rad/s)<br/>Byte 4 ~ 5: Kp [0~65535] corresponds to (0.0 ~ 500.0)<br/>Byte 6 ~ 7: Kd [0~65535] corresponds to (0.0 ~ 5.0)|
+|Description|1|Byte2: Torque (0~65535) corresponding to (- 12Nm~12Nm)|target motor CAN_ID|Byte 0 ~ 1: Target angle [0 ~ 65535] corresponding to (-4π ~ 4π)<br/>Byte 2 ~ 3: Target angular velocity [0 ~ 65535] corresponds to (- 30rad/s ~ 30rad/s)<br/>Byte 4 ~ 5: Kp [0 ~ 65535] corresponds to (0.0 ~ 500.0)<br/>Byte 6 ~ 7: Kd [0 ~ 65535] corresponds to (0.0 ~ 5.0)|
 
 Response frame: Reply motor feedback frame (see communication type 2)
 
@@ -482,7 +482,7 @@ Response frame: Reply motor feedback frame (see communication type 2)
 |Data field|29-bit ID| | |8 byte data area|
 |-|-|-|-|-|
 |Position|Bit 28 ~ 24|bit 23 ~ 8|Bit 7 ~ 0|Byte 0 ~ 7|
-|Description|2|Bit 8 ~ 15: Current motor CAN ID<br/> Bit 21~16: fault information (0 no 1 yes)<br/> Bit 21: not calibrated<br/>Bit 20: HALL encoding failure<br/>Bit 19: Magnetic encoding failure<br/>Bit 18: over temperature<br/>Bit 17: overcurrent<br/>Bit 16: Undervoltage fault<br/>Bit 22 ~ 23: mode status:<br/> 0: Reset mode [reset]<br/>1: Cali mode [Calibration]<br/>2: Motor mode [Run]|Host CAN_ID|Byte 0 ~ 1: Current angle [0~65535] corresponds to (-4π ~ 4π)<br/>Byte 2 ~ 3: Current angular velocity [0~65535] corresponds to (-30rad/s ~ 30rad/s)<br/>Byte 4 ~ 5: Current torque [0~65535] corresponds to (-12Nm~12Nm)<br/>Byte 6 ~ 7: Current temperature: Temp (degrees Celsius) )*10|
+|Description|2|Bit 8 ~ 15: Current motor CAN ID<br/> Bit 21 ~ 16: fault information (0 no 1 yes)<br/> Bit 21: not calibrated<br/>Bit 20: HALL encoding failure<br/>Bit 19: Magnetic encoding failure<br/>Bit 18: over temperature<br/>Bit 17: overcurrent<br/>Bit 16: Undervoltage fault<br/>Bit 22 ~ 23: mode status:<br/> 0: Reset mode [reset]<br/>1: Cali mode [Calibration]<br/>2: Motor mode [Run]|Host CAN_ID|Byte 0 ~ 1: Current angle [0 ~ 65535] corresponds to (-4π ~ 4π)<br/>Byte 2 ~ 3: Current angular velocity [0 ~ 65535] corresponds to (-30rad/s ~ 30rad/s)<br/>Byte 4 ~ 5: Current torque [0 ~ 65535] corresponds to (-12Nm ~ 12Nm)<br/>Byte 6 ~ 7: Current temperature: Temp (degrees Celsius) )*10|
 
 4.1.4 Motor enable operation (communication type 3)
 
@@ -516,7 +516,7 @@ Reply frame: Reply motor feedback frame (see communication type 2)
 |Data field|29-bit ID| | |8 byte data area|
 |-|-|-|-|-|
 |Position|Bit 28 ~ 24|bit 23 ~ 8|Bit 7 ~ 0|Byte 0 ~ 7|
-|Description|7|bit15~8: used to identify the main CAN_ID<br/>Bit16~23: Default CAN_ID|Target motor CAN_ID|Byte[0]=1|
+|Description|7|bit15 ~ 8: used to identify the main CAN_ID<br/>Bit16 ~ 23: Default CAN_ID|Target motor CAN_ID|Byte[0]=1|
 
 Reply frame: Reply motor broadcast frame (see communication type 0)
 
