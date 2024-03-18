@@ -434,9 +434,60 @@ Click the oscilloscope module in the analysis module, select the appropriate par
 
 ![Parameter list](images/pic14.png "Parameter list")
 
-#### 3.4 control demo
+#### 3.4 Control demo
 
-/* TODO: finish translation of 3.4 */
+![Control demo](images/pic18.png "Control demo")
+
+jog run:  
+Set the maximum speed, click Run, and then click JOG to run the motor in forward and reverse directions.
+
+![Control demo](images/pic19.png "Control demo")
+
+Control mode switching:  
+The motor control mode can be converted on the motion mode interface.
+
+![Control demo](images/pic20.png "Control demo")
+
+3.4.1 Zero point mode
+
+![Zero point mode](images/pic21.png "Zero point mode")
+
+Click the switch button on the right, and the motor will slowly return to the mechanical zero position.
+
+3.4.2 Operation control mode
+
+![Operation control mode](images/pic22.png "Operation control mode")
+
+Click the switch button on the right, then set the five parameter values, click Start or Continuous Send, the motor will return to the feedback frame and run according to the target instruction; click the switch button on the right again and the motor will stop.
+
+3.4.2 Current mode
+
+![Current mode](images/pic23.png "Current mode")
+
+Manually switch the current mode, click the switch button on the right, and then set the Iq current command value, start or send continuously, the motor will follow the current command, click the switch button on the right again, the motor will stop.  
+Click the switch button on the right side of the control mode, enter the amplitude and frequency of the sinusoidal automatic test, and then click
+Click the switch button on the right side of the sine automatic test, and the motor's iq (A) will run according to the set amplitude and frequency.
+
+3.4.3 Speed mode
+
+![Speed mode](images/pic24.png "Speed mode")
+
+Manually switch to speed mode, click the switch button on the right, and then set the speed command value (-30~30rad/s), start or send continuously, the motor will follow the speed command, click the switch button on the right again, the motor will stop.  
+点击控制模式右侧开关按钮，输入正弦化自动测试的幅值和频率，然后点 击正弦化自动测试右侧开关按钮，电机的速度(rad/s)会按设定的幅值和频率 来运行。
+
+
+3.4.4 Location mode
+
+![Location mode](images/pic25.png "Location mode")
+
+Manually switch the position mode, click the switch button on the right, then set the position command value (rad), start or send continuously, the motor will follow the target position command, click the switch button on the right again, the motor will stop. You can modify the maximum speed of position following by setting the speed.  
+Click the switch button on the right side of the control mode, enter the amplitude and frequency of the sine-based automatic test, and then click the switch button on the right side of the sine-based automatic test. The motor position (rad) will run according to the set amplitude and frequency.
+
+3.5 Firmware update
+
+![Firmware update](images/pic26.png "Firmware update")
+
+The first step is to click the upgrade of the device module and select the bin file to be burned; the second step is to confirm the upgrade and the motor will start to update the firmware. After the progress is completed, the motor update will be completed and it will restart automatically.
 
 ### 4. Driver communication protocol and usage instructions
 
@@ -556,7 +607,7 @@ Reply frame: Reply motor feedback frame (see communication type 2)
 |Data field|29-bit ID| | |8 byte data area|
 |-|-|-|-|-|
 |Position|Bit 28 ~ 24|Bit 23 ~ 8|Bit 7 ~ 0|Byte 0 ~ 7|
-|Description|18|Bit 15 ~ 8: Host CAN_ID|Motor CAN_ID|Byte0: Motor baud rate<br/>1: 1Mbps<br/>2: 500kbps<br/>3: 250kbps<br/>4: 125kbps|
+|Description|22|Bit 15 ~ 8: Host CAN_ID|Motor CAN_ID|Byte0: Motor baud rate<br/>1: 1Mbps<br/>2: 500kbps<br/>3: 250kbps<br/>4: 125kbps|
 
 Reply frame: Reply motor broadcast frame (see communication type 0)
 
@@ -733,23 +784,33 @@ void motor_write(uint8_t id, uint16_t master_id) {
 ![Operation control mode](images/pic15.png "Operation control mode")
 
 After the motor is powered on, it is in the operation control mode by default;  
-Send motor enable running frame (communication type 3)-->Send operation control mode motor control command (communication type 1)-->Receive motor feedback frame (communication type 2)
+Send motor enable running frame (communication type 3) -->  
+Send operation control mode motor control command (communication type 1) -->  
+Receive motor feedback frame (communication type 2)
 
 4.2.3 Current mode
 
-Send the motor mode parameter write command (communication type 18) and set the runmode parameter to 3 ---> Send the motor enable run frame (communication type 3) --> Send the motor mode parameter write command (communication type 18) and set the iq_ref parameter is the preset current command
+Send the motor mode parameter write command (communication type 18) and set the runmode parameter to 3 --->  
+Send the motor enable run frame (communication type 3) -->  
+Send the motor mode parameter write command (communication type 18) and set the iq_ref parameter is the preset current command
 
 4.2.4 Speed mode
 
 ![Speed mode](images/pic16.png "Speed mode")
 
-Send the motor mode parameter write command (communication type 18) and set the runmode parameter to 2 ---> Send the motor enable run frame (communication type 3) --> Send the motor mode parameter write command (communication type 18) and set the limit_cur parameter For the preset maximum current command-->Send motor mode parameter write command (communication type 18) to set the spd_ref parameter to the preset speed command
+Send the motor mode parameter write command (communication type 18) and set the runmode parameter to 2 --->  
+Send the motor enable run frame (communication type 3) -->  
+Send the motor mode parameter write command (communication type 18) and set the limit_cur parameter For the preset maximum current command -->  
+Send motor mode parameter write command (communication type 18) to set the spd_ref parameter to the preset speed command
 
 4.2.5 Location mode
 
 ![Location mode](images/pic17.png "Location mode")
 
-Send the motor mode parameter write command (communication type 18) and set the runmode parameter to 1 --> Send the motor enable run frame (communication type 3) --> Send the motor mode parameter write command (communication type 18) and set the limit_spd parameter to Preset maximum speed command-->Send motor mode parameter write command (communication type 18) to set the loc_ref parameter to the preset position command
+Send the motor mode parameter write command (communication type 18) and set the runmode parameter to 1 -->  
+Send the motor enable run frame (communication type 3) -->  
+Send the motor mode parameter write command (communication type 18) and set the limit_spd parameter to Preset maximum speed command -->  
+Send motor mode parameter write command (communication type 18) to set the loc_ref parameter to the preset position command
 
 4.2.6 Stop operation
 
