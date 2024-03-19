@@ -2,6 +2,7 @@
 
 
 * [Instruction manual translated to english](instructionmanual/instructionmanual.md)
+* [Posters translated to english](posters/posters.md)
 * [CyberGear library for M5 stack](https://github.com/project-sternbergia/cybergear_m5)
 * [CyberGear node for ROS2](https://github.com/project-sternbergia/cybergear_m5_ros2)
 * [The story of making a 3Dof robot arm in about a week with Xiaomi CyberGear](https://note.com/plastic_gear/n/n090ab7c9bdb4)
