@@ -15,4 +15,4 @@
 * [CyberGear ROS2 driver](https://github.com/NaokiTakahashi12/cybergear_ros2)
 * [Xiaomi CyberGear Debugger App Setup - English](https://www.youtube.com/watch?v=ZpnEQlkW320)
 * [Y-arm A 6-axis robot arm based on Xiaomi CyberGear Motor](https://www.printables.com/model/608101-y-arm-a-6-axis-robot-arm-based-on-xiaomi-cybergear)
-
+* [CyberGear discussion on SimpleFOC community forum](https://community.simplefoc.com/t/xiaomi-cyber-dog-geared-motor-60/3855)
